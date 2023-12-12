@@ -60,11 +60,6 @@ static Ref_t createDetector(Detector &desc, xml::Handle_t handle, SensitiveDetec
   // Place our mother volume in the world
   Volume wVol = desc.pickMotherVolume(det);
 
-  // setup mother volume as transparent.
-  // This is just for example, bad practice in general!
-  wVol.setVisAttributes("no_vis");
-
-
   PlacedVolume sensorPV = wVol.placeVolume(sensVol, Position(0, 0, zpos));
 
   // Assign the system ID to our mother volume
