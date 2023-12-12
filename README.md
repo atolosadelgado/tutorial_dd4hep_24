@@ -1,18 +1,25 @@
 #HOW TO DD4hep
 ==============
 
-## Compile project
+DD4hep is an assembly of packages that provide support for detector description (DD4hep) and simulation (DDG4), among other features. The detector description is given in a XML file, the so-called compact file. This file may reference to other XML files containing different sections needed for the detector description. It may reference to the so-called detector constructors, which take care of building the geometry of one sub-detector. This detector constructor is a piece of C++ code, which has to be compiled as it is going to be shown in this tutorial. 
 
-Source the paths to the commands of DD4hep and its dependencies, for example, from cvmfs
+## Build the project
 
+Source the paths to the commands of DD4hep and its dependencies, for example, key4hep software stable stack
+
+```shell
+source /cvmfs/sw.hsf.org/key4hep/setup.sh
+```
+
+or just LCG from CVMF (please remember to match the path with your operative system)
 ```shell
 source /cvmfs/sft.cern.ch/lcg/views/dev4/latest/x86_64-centos7-gcc11-opt/setup.sh 
 ```
 
-To compile,
+To build this project,
 ```shell
 cmake -B build -S . -D CMAKE_INSTALL_PREFIX=install
-cmake --build build -- install
+cmake --build build -j 2 -- install
 ```
 
 After that, the install directory will look like this:
@@ -21,52 +28,68 @@ After that, the install directory will look like this:
 $ tree install/
 install/
 └── lib
-    ├── libsimple_example.components
-    └── libsimple_example.so
+    ├── libtutorial_dd4hep_24.components
+    └── libtutorial_dd4hep_24.so
 
 1 directory, 2 files
 ```
 
-To let the programs know where to find our freshly built detector, we have to update this env variable
+In addition, we have to update this environmental variable to let the programs know where to find our freshly built detector constructor, 
 
 ```shell
 export LD_LIBRARY_PATH=$PWD/install/lib:$LD_LIBRARY_PATH
 ```
 
-## Things to do after every change
-
-Compile and install after every modification of the c++ detector constructor code.
-
-```bash
-cmake --build build -- install
-```
-
 ## Visualize and debug geometry
 
-To display the geometry
+There are several ways to visualize a detector
+
+### geoDisplay command (DD4hep)
 
 ```bash
 geoDisplay ./compact/simple_detector.xml
 ```
 
-To convert the geometry into ROOT
+### ROOT RBrowser (Phoenix-like)
+
+First we need to convert the geometry into ROOT using a python script:
 
 ```bash
-./dd4hep2root -c  ./compact/simple_detector.xml -o arc_v0.root
+./scripts/dd4hep2root -c ./compact/simple_detector.xml -o simple_detector.root
 ```
 
+Secondly, we can browse the content using this ROOT command
+```bash
+rootbrowse simple_detector.root
+```
 
 To show materials in along a given line (in this case from origin to (0,0,-100)cm), check if the modified volume has the proper material
 
 ```bash
 materialScan ./compact/simple_detector.xml 0 0 -30 0 0 30
 ```
+### Geant4 Qt interface
 
-Possible issue if `USE_GEANT4_UNITS` enabled when building DD4hep.
+DD4hep provides the command `ddsim`, which interfaces the Geant4 components, and therefore it can be used to display the geometry (and tracks)
 
-Check overlaps, using Geant4 check
+```bash
+ddsim --compactFile ./compact/simple_detector.xml --runType qt --macroFile ./scripts/vis.mac
+```
+
+The file `./scripts/vis.mac` contains some Geant4 UI commands to open a new Qt window and draw the geometry. In order to visualize the geometry using Geant4, the DD4hep (ROOT) geometry is translated, and Geant4 may spot errors in the geometry which may be invisible to ROOT.
+
+
+## Things to do after every change
+
+Compile and install after every modification of the C++ detector constructor code
+
+```bash
+cmake --build build -- install
+```
+
+Run the overlap check provided by Geant4 as follows:
 ```shell
-ddsim --compactFile ./compact/simple_detector.xml --runType run --part.userParticleHandler='' --macroFile overlap.mac >> overlapDump.txt
+ddsim --compactFile ./compact/simple_detector.xml --runType run --part.userParticleHandler='' --macroFile ./scripts/overlap.mac >> overlapDump.txt
 ```
 
 ## Run simulation
