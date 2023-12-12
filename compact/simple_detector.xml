@@ -1,0 +1,62 @@
+<lccdd >
+
+<info name="A_NAME"
+      title="Nice title here"
+      author="Someone"
+      url="my_url"
+      status="development">
+</info>
+
+<includes>
+  <gdmlFile ref="elements.xml"/>
+  <gdmlFile ref="materials.xml"/>
+</includes>
+
+<display>
+  <vis name="vessel_vis"  r="236/256" g="237/256" b="232/256" alpha="0.1"  showDaughters="true" visible="true" />
+  <vis name="sensor_vis"  r="255/256" g="0/256"   b="0/256"   alpha="1.0"  showDaughters="true" visible="true" />
+  <vis name="no_vis" showDaughters="true" visible="false" />
+</display>
+
+<define>
+  <constant name="world_side"             value="10*m"        />
+  <constant name="world_x"                value="world_side"  />
+  <constant name="world_y"                value="world_side"  />
+  <constant name="world_z"                value="world_side"  />
+  <constant name="tracker_region_zmax"    value="world_side"  />
+  <constant name="tracker_region_rmax"    value="world_side"  />
+  <constant name="vessel_wall_thickness"  value="1*mm"        />
+</define>
+
+
+<readouts>
+  <readout name="MY_HITS">
+    <segmentation type="CartesianGridXY" grid_size_x="1*cm" grid_size_y="1*cm" />
+      <id>system:8,x:12:-6,y:24:-6</id>
+  </readout>
+</readouts>
+
+
+<detectors>
+    <detector
+      id="1"
+      name="MY_FIRST_CUBE"
+      type="MYCUBE_T"
+      material="DummyNeutronSensorMaterial"
+      vis="sensor_vis"
+      readout="MY_HITS"
+      zposition="-5.*mm"
+    >
+      <dimensions x="10.*mm" y="10.*mm" z="10.*mm" />
+
+      <vessel
+          material="Aluminum"
+          vis="vessel_vis"
+          thickness="vessel_wall_thickness"
+          />
+      />
+    </detector>
+    <!--End of detector section-->
+</detectors>
+
+</lccdd>
