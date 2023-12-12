@@ -89,15 +89,15 @@ cmake --build build -- install
 
 Run the overlap check provided by Geant4 as follows:
 ```shell
-ddsim --compactFile ./compact/simple_detector.xml --runType run --part.userParticleHandler='' --macroFile ./scripts/overlap.mac >> overlapDump.txt
+ddsim --compactFile ./compact/simple_detector.xml --runType run --macroFile ./scripts/overlap.mac >> overlapDump.txt
 ```
 
 ## Run simulation
 
-To run the simulation of 0.27402359GeV alpha particle, we have to provide total energy (mass+kinetic) so 4GeV total:
+To run the simulation of 10 MeV neutron particle hiting the detector, we have to provide total energy (mass+kinetic) so 950 MeV total:
 
 ```shell
-ddsim --compactFile compact/simple_detector.xml --runType qt --enableGun --gun.particle alpha --gun.energy 4*GeV  -N 1 --outputFile example_edm4hep.root --macroFile vis.mac --gun.distribution uniform --gun.isotrop true
+ddsim --compactFile compact/simple_detector.xml --runType qt --macroFile ./scripts/vis.mac --enableGun --gun.particle neutron --gun.energy 950*MeV --gun.direction "0 0 -1" --gun.position "0 0 1*cm" --outputFile example_edm4hep.root -N 1
 ```
 
 The track can be something like ![A track of 274.02359 MeV alpha in lead](https://mattermost.web.cern.ch/files/f1tnt4n4n7dabk7zpbnwxbyxdc/public?h=usG4tmiWGuhWBAujICrw-K5bv63s6TR0izjSpG4CvjM)
