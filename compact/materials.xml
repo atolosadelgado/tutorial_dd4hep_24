@@ -14,9 +14,10 @@
       <fraction n="0.012" ref="Ar"/>
     </material>
     <material name="DummyNeutronSensorMaterial"> 
-      <D type="density" value="1" unit="g/cm3"/>
-      <composite n="1" ref="B"/>
-      <composite n="2" ref="Li"/>
+      <D type="density" unit="g/cm3" value="0.1"/>
+      <composite n="97" ref="He"/>
+      <composite n="1"  ref="C" />
+      <composite n="2"  ref="O" />
     </material>
   </materials>
 
