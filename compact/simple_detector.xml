@@ -25,38 +25,35 @@
   <constant name="world_z"                value="world_side"  />
   <constant name="tracker_region_zmax"    value="world_side"  />
   <constant name="tracker_region_rmax"    value="world_side"  />
-  <constant name="vessel_wall_thickness"  value="1*mm"        />
 </define>
 
 
 <readouts>
   <readout name="MY_HITS">
-    <segmentation type="CartesianGridXY" grid_size_x="1*cm" grid_size_y="1*cm" />
+    <segmentation type="CartesianGridXY" grid_size_x="1*mm" grid_size_y="1*mm" />
       <id>system:8,x:12:-6,y:24:-6</id>
   </readout>
 </readouts>
 
 
 <detectors>
-    <detector
+  <detector
       id="1"
       name="MY_FIRST_CUBE"
       type="MYCUBE_T"
       material="DummyNeutronSensorMaterial"
       vis="sensor_vis"
       readout="MY_HITS"
-      zposition="-5.*mm"
     >
-      <dimensions x="10.*mm" y="10.*mm" z="10.*mm" />
+    <dimensions x="10.*mm" y="10.*mm" z="10.*mm" />
+    <!-- /detectors/detector/myproperties -->
+    <myproperties
+        zposition="-5.*mm"
+      >
+    </myproperties>
+  </detector>
 
-      <vessel
-          material="Aluminum"
-          vis="vessel_vis"
-          thickness="vessel_wall_thickness"
-          />
-      />
-    </detector>
-    <!--End of detector section-->
+
 </detectors>
 
 </lccdd>

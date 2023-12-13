@@ -25,14 +25,9 @@ static Ref_t createDetector(Detector &desc, xml::Handle_t handle, SensitiveDetec
   double size_z = dims.attr<double>(_Unicode(z));
 
 
+  xml::Component mypropertiesElem = detElem.child(_Unicode(myproperties));
   // In general, single fields may be accessed with attr function:
-  auto zpos = detElem.attr<double>(_Unicode(zposition));
-
-  // subsections of the detector can be accessed as this:
-  // auto vesselElem      = detElem.child(_Unicode(vessel));
-  // auto vesselVisStr    = vesselElem.attr<std::string>(_Unicode(vis)); // or using visStr
-  // auto vesselMatStr    = vesselElem.attr<std::string>(_Unicode(material)); // or using materialStr
-  // auto vesselThickness = vesselElem.attr<std::string>(_Unicode(thickness));
+  auto zpos = mypropertiesElem.attr<double>(_Unicode(zposition));
 
   // Setup which kind of sensitive detector is
   sens.setType("tracker");
