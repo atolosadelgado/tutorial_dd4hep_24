@@ -69,7 +69,7 @@ namespace dd4hep {
       hit->cellID        = this->sensitive->cellID(step);
       hit->energyDeposit = contrib.deposit;
       hit->position      = position;
-      hit->momentum      = 0.5*( h. preMom() + h.postMom() ) ;
+      hit->momentum      = 0.5*( h.preMom() + h.postMom() ) ;
       hit->length        = hit_len;
 
       if (track->GetDefinition() == G4Neutron::Definition()) {
@@ -87,13 +87,13 @@ namespace dd4hep {
 
 
     /// Mark the track to be kept for MC truth propagation during hit processing
-      sensitive->mark(h.track);
-
+//       sensitive->mark(h.track);
+/*
       sensitive->printM2("Hit with deposit:%f  Pos:%f %f %f ID=%016X",
             step->GetTotalEnergyDeposit(),position.X(),position.Y(),position.Z(),
             (void*)hit->cellID);
       Geant4TouchableHandler handler(step);
-      sensitive->printM2("    Geant4 path:%s",handler.path().c_str());
+      sensitive->printM2("    Geant4 path:%s",handler.path().c_str());*/
       return true;
     }
 
@@ -106,11 +106,8 @@ namespace dd4hep {
     /// Initialization overload for specialization
     template <> void Geant4SensitiveAction<NeutronSDdata>::initialize() {
       eventAction().callAtEnd(&m_userData,&NeutronSDdata::endEvent);
-
-      m_userData.fNeutronEnergyThreshold = m_sensitive.energyCutoff();
       m_userData.sensitive = this;
-
-      //IDDescriptor dsc = m_sensitive.idSpec() ;
+      declareProperty("NeutronEnergyThreshold", m_userData.fNeutronEnergyThreshold );
 
     }
 
