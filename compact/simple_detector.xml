@@ -35,15 +35,20 @@
   </readout>
 </readouts>
 
+  <regions>
+    <region name="myregion" eunit="MeV" lunit="mm" cut="0.001" threshold="0.001">
+    </region>
+    </regions>
 
 <detectors>
   <detector
       id="1"
       name="MY_FIRST_CUBE"
       type="MYCUBE_T"
-      material="DummyNeutronSensorMaterial"
+      material="CalorimeterMaterial"
       vis="sensor_vis"
       readout="MY_HITS"
+      region="myregion"
     >
     <dimensions x="10.*mm" y="10.*mm" z="10.*mm" />
     <!-- /detectors/detector/myproperties -->
