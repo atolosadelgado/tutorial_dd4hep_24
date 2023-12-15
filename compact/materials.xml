@@ -13,11 +13,11 @@
       <fraction n="0.234" ref="O"/>
       <fraction n="0.012" ref="Ar"/>
     </material>
-    <material name="DummyNeutronSensorMaterial"> 
-      <D type="density" unit="g/cm3" value="0.1"/>
-      <composite n="97" ref="He"/>
-      <composite n="1"  ref="C" />
-      <composite n="2"  ref="O" />
+    <material name="CalorimeterMaterial">
+      <D type="density" unit="g/cm3" value="100"/>
+      <composite n="1" ref="Pb"/>
+      <composite n="1" ref="W" />
+      <composite n="4" ref="O" />
     </material>
   </materials>
 
