@@ -32,6 +32,7 @@ static Ref_t createDetector(Detector &desc, xml::Handle_t handle, SensitiveDetec
   // Setup which kind of sensitive detector is
   sens.setType("tracker");
 
+
   // Create the mother Detector element to be returned at the end of the function
   DetElement det(detName, detID);
 
@@ -50,7 +51,7 @@ static Ref_t createDetector(Detector &desc, xml::Handle_t handle, SensitiveDetec
 
   // Associate this volume with the sensitive detector machinery
   sensVol.setSensitiveDetector(sens);
-
+  sensVol.setRegion(desc, detElem.regionStr());
 
   // Place our mother volume in the world
   Volume wVol = desc.pickMotherVolume(det);
