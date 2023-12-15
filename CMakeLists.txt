@@ -19,6 +19,6 @@ target_link_libraries(${PackageName}   DD4hep::DDCore DD4hep::DDRec DD4hep::DDPa
 
 
 # Build the sensitive detectors
-file(GLOB sourcesG4 ./plugin/*.cpp )
+file(GLOB sourcesG4 ./plugins/*.cpp )
 add_dd4hep_plugin(${PackageName}G4 SHARED ${sourcesG4})
 target_link_libraries(${PackageName}G4 DD4hep::DDCore DD4hep::DDRec DD4hep::DDParsers DD4hep::DDG4 ${ROOT_LIBRARIES} ${Geant4_LIBRARIES} ${LCIO_LIBRARIES})
